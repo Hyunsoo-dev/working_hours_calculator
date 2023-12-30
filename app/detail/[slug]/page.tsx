@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useWorkerListStore } from "@/app/store/workerListStore/useWorkerListStore";
-import { WorkerList } from "@/app/lib/definitions";
+import { WorkerList, WorkerListStore } from "@/app/lib/definitions";
 
 const Page = ({ params }: { params: { slug: string }}) => {
     console.log('params:', decodeURIComponent(params.slug));
@@ -11,7 +11,7 @@ const Page = ({ params }: { params: { slug: string }}) => {
         totalUnderWorkTime: '',
         workRecord: []
     });
-    const getWorkerList = useWorkerListStore(state => state.getWorkerList);
+    const getWorkerList = useWorkerListStore((state:WorkerListStore) => state.getWorkerList);
 
     useEffect(() => {
         const userName = decodeURIComponent(params.slug)

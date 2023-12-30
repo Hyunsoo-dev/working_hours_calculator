@@ -28,7 +28,7 @@ export type WorkerList = {
     userName: string,
     totalOverTime: string,
     totalUnderWorkTime: string,
-    workRecord: any[],
+    workRecord: InfoEn[],
 }
 
 export interface WorkerListStore {
