@@ -24,6 +24,18 @@ export type InfoEn = {
     leaveTime: string;
 }
 
+export type WorkerList = {
+    userName: string,
+    totalOverTime: string,
+    totalUnderWorkTime: string,
+    workRecord: any[],
+}
+
+export interface WorkerListStore {
+    workerList: WorkerList[],
+    setWorkerList: (newState: WorkerList[]) => void,
+    getWorkerList: (searchValue: string) => WorkerList[],
+}
 
 export type Info = {
 

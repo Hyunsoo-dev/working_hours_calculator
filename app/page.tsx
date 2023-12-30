@@ -10,25 +10,33 @@ import {
   sumNegativeTimes,
   sumPositiveTimesAfterSubtracting2Hours
 } from './lib/utils';
-
+import { useWorkerListStore } from "@/app/store/workerListStore/useWorkerListStore";
 
 export default function Home() {
   const [isSelectedFile, setIsSelectedFile] = useState<boolean>(false);
   const inputElementRef = useRef<HTMLInputElement | null>(null);
+  const setWorkerList = useWorkerListStore(state => state.setWorkerList);
+
   const onClickInputElement = async (event: React.ChangeEvent<HTMLInputElement>) => {
+
 
     const file = [...event.target.files][0];
     const jsonData = await readExel(file) as InfoKr[];
     const resultOfParseKeyName = parseKeyName(jsonData);
+    console.log('resultOfParseKeyName :', resultOfParseKeyName);
     const resultOfParseByName = parseByName(resultOfParseKeyName);
-
+    console.log('resultOfParseByName :', resultOfParseByName);
+    let tempWorkerList = [];
     for (const userName in resultOfParseByName) {
       const workRecordArray = resultOfParseByName[userName];
       const notNullWorkRecordArray = workRecordArray.filter(workRecord => workRecord.overTime).map(workRecord => workRecord.overTime);
       const totalUnderWorkTime = sumNegativeTimes(notNullWorkRecordArray);
       const totalOverTime = sumPositiveTimesAfterSubtracting2Hours(notNullWorkRecordArray);
       console.log(userName, 'totalUnderWorkTime :', totalUnderWorkTime, 'totalOverTime: ', totalOverTime);
+      tempWorkerList.push({userName, totalUnderWorkTime, totalOverTime, workRecord: workRecordArray});
+
     }
+    setWorkerList(tempWorkerList);
     setIsSelectedFile(true);
   }
 
