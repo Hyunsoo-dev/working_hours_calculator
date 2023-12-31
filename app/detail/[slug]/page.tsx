@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useWorkerListStore } from "@/app/store/workerListStore/useWorkerListStore";
-import { WorkerList, WorkerListStore } from "@/app/lib/definitions";
+import { WorkerList, WorkerListStore, InfoEn } from "@/app/lib/definitions";
 
 const Page = ({ params }: { params: { slug: string }}) => {
     console.log('params:', decodeURIComponent(params.slug));
@@ -15,7 +15,8 @@ const Page = ({ params }: { params: { slug: string }}) => {
 
     useEffect(() => {
         const userName = decodeURIComponent(params.slug)
-        const workInfo = getWorkerList(userName)[0];
+        const tempWorkerList = getWorkerList(userName) as WorkerList[];
+        const workInfo = tempWorkerList[0];
         // setWorkRecord(...workInfo);
         setWorkInfo(workInfo);
     }, [])
@@ -39,7 +40,7 @@ const Page = ({ params }: { params: { slug: string }}) => {
                 </tr>
                 </thead>
                 <tbody>
-                {workInfo.workRecord.map((record:any[], idx) => {
+                {workInfo.workRecord.map((record:InfoEn, idx) => {
                     return (
                         <tr key={idx} className={'border border-indigo-500 h-8 hover:bg-indigo-500 cursor-pointer'}>
                             <td className="text-center align-middle">{record.department ? record.department : '--'}</td>

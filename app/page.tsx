@@ -1,5 +1,5 @@
 'use client';
-import{ InfoKr } from "@/app/lib/definitions";
+import {InfoEn, InfoKr, WorkerListStore} from "@/app/lib/definitions";
 import React, { useState, useRef } from "react";
 import * as XLSX from 'xlsx';
 import Search from "@/app/ui/main/search";
@@ -15,12 +15,12 @@ import { useWorkerListStore } from "@/app/store/workerListStore/useWorkerListSto
 export default function Home() {
   const [isSelectedFile, setIsSelectedFile] = useState<boolean>(false);
   const inputElementRef = useRef<HTMLInputElement | null>(null);
-  const setWorkerList = useWorkerListStore(state => state.setWorkerList);
+  const setWorkerList = useWorkerListStore((state: WorkerListStore) => state.setWorkerList);
 
   const onClickInputElement = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files as FileList;
 
-
-    const file = [...event.target.files][0];
+    const file = Array.from(files)[0];
     const jsonData = await readExel(file) as InfoKr[];
     const resultOfParseKeyName = parseKeyName(jsonData);
     console.log('resultOfParseKeyName :', resultOfParseKeyName);
@@ -29,7 +29,7 @@ export default function Home() {
     let tempWorkerList = [];
     for (const userName in resultOfParseByName) {
       const workRecordArray = resultOfParseByName[userName];
-      const notNullWorkRecordArray = workRecordArray.filter(workRecord => workRecord.overTime).map(workRecord => workRecord.overTime);
+      const notNullWorkRecordArray = workRecordArray.filter((workRecord: InfoEn) => workRecord.overTime).map((workRecord: InfoEn) => workRecord.overTime);
       const totalUnderWorkTime = sumNegativeTimes(notNullWorkRecordArray);
       const totalOverTime = sumPositiveTimesAfterSubtracting2Hours(notNullWorkRecordArray);
       console.log(userName, 'totalUnderWorkTime :', totalUnderWorkTime, 'totalOverTime: ', totalOverTime);

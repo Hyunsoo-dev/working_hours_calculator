@@ -1,8 +1,8 @@
-import { InfoKr, InfoEn } from "@/app/lib/definitions";
+import {InfoKr, InfoEn, Info} from "@/app/lib/definitions";
 import * as XLSX from 'xlsx';
 
 
-const KEY_NAME = {
+const KEY_NAME: InfoKr = {
     'IP': 'ip',
     'No': 'no',
     '날짜': 'date',
@@ -15,11 +15,11 @@ const KEY_NAME = {
     '퇴근시간': 'leaveTime'
 }
 
-export const readExel = async (file) => {
+export const readExel = async (file: File) => {
     return new Promise((resolve) => {
         const reader = new FileReader();
         reader.onload = (e) => {
-            const data = e.target.result;
+            const data = e.target?.result;
             const workbook = XLSX.read(data, { type: 'binary' });
             // Process workbook here
             const firstSheetName = workbook.SheetNames[0];
@@ -39,7 +39,7 @@ export const parseKeyName = (infos: InfoKr[]) => {
         let parsedObj = {}  as any;
         const infoKeys = Object.keys(info);
         infoKeys.map((infoKey: string, idx: number) => {
-          if (KEY_NAME[infoKey]) {
+          if (KEY_NAME[infoKey as keyof InfoKr]) {
               parsedObj[KEY_NAME[infoKey]] = info[infoKey];
           }
           if (!KEY_NAME[infoKey]) {

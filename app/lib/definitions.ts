@@ -9,6 +9,7 @@ export type InfoKr = {
     '출근시간': string;
     '퇴근-출근시간': string;
     '퇴근시간': string;
+    [key: string]: string;
 }
 
 export type InfoEn = {
@@ -34,7 +35,7 @@ export type WorkerList = {
 export interface WorkerListStore {
     workerList: WorkerList[],
     setWorkerList: (newState: WorkerList[]) => void,
-    getWorkerList: (searchValue: string) => WorkerList[],
+    getWorkerList: (searchValue: string | null) => WorkerList[] | undefined,
 }
 
 export type Info = {

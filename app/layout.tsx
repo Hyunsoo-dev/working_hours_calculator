@@ -7,7 +7,6 @@ const bmJua = localFont({
     src: [{
         path: './font/BMJUA.otf',
         weight: 'normal',
-        height: 'normal',
     }]
 })
 

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { WorkerListStore, InfoEn } from '../../lib/definitions';
+import {WorkerListStore, InfoEn, WorkerList} from '../../lib/definitions';
 
 
 const initialState = {
@@ -9,17 +9,17 @@ const initialState = {
     workRecord: [],
 }
 
-export const useWorkerListStore = create<WorkerListStore>((set) => ({
+export const useWorkerListStore = create<WorkerListStore>((set, get) => ({
     workerList: [],
-    setWorkerList: newState => {
+    setWorkerList: (newState: WorkerList[]) => {
         console.log('newState :', newState);
-        set((prevState) => ({ workerList: newState }))
+        set(() => ({ workerList: newState }))
     },
-    getWorkerList: searchValue => {
+    getWorkerList: (searchValue: string | null) => {
         console.log('searchValue: ', searchValue);
-        if (!searchValue) return useWorkerListStore.getState().workerList;
+        if (!searchValue) return get().workerList;
         if (searchValue) {
-            const workerList = useWorkerListStore.getState().workerList;
+            const workerList = get().workerList;
             return workerList.filter(worker => worker.userName === searchValue);
         }
 

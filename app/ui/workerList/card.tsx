@@ -1,6 +1,7 @@
 import { useRouter } from 'next/navigation';
+import {WorkerList} from "@/app/lib/definitions";
 
-const Card = ({worker}) => {
+const Card = ({worker}: {worker: WorkerList}) => {
     const router = useRouter();
     const onClickCard = () => {
         // router.push(`/detail/${worker.userName}`)
