@@ -14,7 +14,7 @@ const Search = () => {
     }
     console.log('searchValue :', searchValue);
     return (
-        <main className={'flex w-1/2 space-x-3 mt-4'}>
+        <main className={'flex xl:w-1/2 w-full space-x-3 mt-4'}>
             <input type={'text'} id={'searchInput'} placeholder={'User Name'} className={'text-black w-2/3 px-4 py-1'} onChange={onChangeInput} value={searchValue}/>
             <button className={'bg-indigo-600 px-2 py-1 w-1/3 hover:bg-indigo-500'} onClick={onClickSearchButton}>Search</button>
         </main>

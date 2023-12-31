@@ -45,10 +45,10 @@ export default function Home() {
 
   }
   return (
-      <main className={'md:container mx-auto h-screen flex flex-col justify-center items-center'}>
+      <main className={'md:container xl:mx-auto mx-2 h-screen flex flex-col justify-center items-center'}>
         {/*<button onClick={() => setIsSelectedFile(!isSelectedFile)}>Button</button>*/}
         <input ref={inputElementRef} className={'hidden'} type='file' onChange={onClickInputElement}/>
-        <section className={'flex justify-center items-center w-1/2 h-1/4 bg-indigo-600 cursor-cell'} onClick={onChangeDropBox}>DropBox</section>
+        <section className={'flex justify-center items-center xl:w-1/2 w-full h-1/4 bg-indigo-600 cursor-cell'} onClick={onChangeDropBox}>DropBox</section>
         {isSelectedFile && <Search />}
       </main>
   )
