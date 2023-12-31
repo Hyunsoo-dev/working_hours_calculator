@@ -14,12 +14,13 @@ const Page = ({ params }: { params: { slug: string }}) => {
     const getWorkerList = useWorkerListStore((state:WorkerListStore) => state.getWorkerList);
 
     useEffect(() => {
+
         const userName = decodeURIComponent(params.slug)
         const tempWorkerList = getWorkerList(userName) as WorkerList[];
         const workInfo = tempWorkerList[0];
         // setWorkRecord(...workInfo);
         setWorkInfo(workInfo);
-    }, [])
+    }, [params.slug, getWorkerList])
 
     return (
         <main className={'md:container xl:mx-auto mx-2 h-full flex flex-col justify-center items-center py-10'}>
