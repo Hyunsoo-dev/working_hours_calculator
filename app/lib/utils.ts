@@ -66,66 +66,6 @@ export const parseByName = (infos: InfoEn[]) => {
     // console.log('parsedObj: ', parsedObj);
 }
 
-export const getFromOverTimeString = (timeString: string) => {
-    if (!timeString) return null;
-    const [hours, minutes, seconds] = timeString.split(':').map(Number);
-
-    const currentTime = new Date();
-    currentTime.setHours(hours);
-    currentTime.setMinutes(minutes);
-    currentTime.setSeconds(seconds);
-
-    // console.log(currentTime);
-    return currentTime;
-}
-
-export const subtractHoursFromOverTimeString = (timeString: string) => {
-    const hoursToSubtract = 2;
-    // Split the time string into hours, minutes, and seconds
-    const [hours, minutes, seconds] = timeString.split(':').map(Number);
-
-    // Create a new Date object with the current date and time
-    const currentTime = new Date();
-
-    // Set the hours, minutes, and seconds of the Date object
-    currentTime.setHours(hours);
-    currentTime.setMinutes(minutes);
-    currentTime.setSeconds(seconds);
-
-    // Subtract the specified number of hours
-    currentTime.setHours(currentTime.getHours() - hoursToSubtract);
-
-    return currentTime;
-}
-
-export const isDateType = (date: any) => {
-    return date instanceof Date;
-}
-
-export const formatTime = (date: Date) => {
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-
-    return `${hours}:${minutes}:${seconds}`;
-}
-
-export const sumTimeDurations = (dateArray: Date[]): string => {
-    let totalMilliseconds = 0;
-
-    for (const date of dateArray) {
-        totalMilliseconds += date.getTime();
-    }
-
-    const totalSeconds = Math.floor(totalMilliseconds / 1000);
-    const seconds = totalSeconds % 60;
-    const totalMinutes = Math.floor(totalSeconds / 60);
-    const minutes = totalMinutes % 60;
-    const hours = Math.floor(totalMinutes / 60);
-
-    return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-}
-
 export const sumNegativeTimes = (timeArray: string[]): string => {
     let totalHours = 0;
     let totalMinutes = 0;
@@ -227,3 +167,38 @@ export const sumPositiveTimesAfterSubtracting2Hours = (timeArray: string[]): str
     return `${totalHours.toString().padStart(2, '0')}:${totalMinutes.toString().padStart(2, '0')}:${totalSeconds.toString().padStart(2, '0')}`;
 }
 
+export const convertToSeconds = (time: string) => {
+    if (time.startsWith("-")) {
+        time = time.slice(1);
+    }
+    let [hoursStr, minutesStr, secondsStr] = time.split(":").map((str) => parseInt(str, 10));
+    return (hoursStr * 60 * 60 + minutesStr * 60 + secondsStr);
+
+
+}
+
+export const convertSecondsToTime = (seconds: number): string => {
+    seconds = Math.abs(seconds);
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const paddedHours = String(hours).padStart(2, '0');
+    const paddedMinutes = String(minutes).padStart(2, '0');
+    const paddedSeconds = String(remainingSeconds).padStart(2, '0');
+    if (seconds <= 0) {
+        `-${paddedHours}:${paddedMinutes}:${paddedSeconds}`;
+    }
+    return `${paddedHours}:${paddedMinutes}:${paddedSeconds}`;
+}
+
+export const calculateVacation = (seconds: number) => {
+    if (seconds <= 0) {
+        return `휴가:${0}일 반차:${0}일`;
+    }
+    let secondsOfEightHours = 28800;
+    let share = Math.floor(seconds / secondsOfEightHours).toFixed(0);
+    let remain = parseFloat((((seconds % secondsOfEightHours)) / secondsOfEightHours).toFixed(2));
+    remain = remain >= 0.5 ? 0.5 : 0;
+    return `휴가: ${share}일, 반차: ${remain}일`;
+}

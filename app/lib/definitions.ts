@@ -29,6 +29,8 @@ export type WorkerList = {
     userName: string,
     totalOverTime: string,
     totalUnderWorkTime: string,
+    totalTime: string,
+    vacation: string,
     workRecord: InfoEn[],
 }
 

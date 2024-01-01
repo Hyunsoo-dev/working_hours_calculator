@@ -9,6 +9,8 @@ const Page = ({ params }: { params: { slug: string }}) => {
         userName: '',
         totalOverTime: '',
         totalUnderWorkTime: '',
+        totalTime: '',
+        vacation: '',
         workRecord: []
     });
     const getWorkerList = useWorkerListStore((state:WorkerListStore) => state.getWorkerList);
@@ -28,6 +30,10 @@ const Page = ({ params }: { params: { slug: string }}) => {
                 <div>{workInfo.userName}</div>
                 <div>차감 근무: {workInfo.totalUnderWorkTime}</div>
                 <div>초과 근무: {workInfo.totalOverTime}</div>
+            </div>
+            <div className={'h-12 w-full xl:text-xl text-base flex gap-5'}>
+                <div>근무 합계: {workInfo.totalTime}</div>
+                <div>{workInfo.vacation}</div>
             </div>
             <table className="w-full table-auto border border-indigo-600 xl:text-xl text-sm">
                 <thead>
