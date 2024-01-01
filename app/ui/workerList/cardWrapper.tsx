@@ -21,7 +21,7 @@ const CardWrapper = () => {
 
     return (
         <main className={'flex flex-col justify-center items-center w-full h-full py-10 gap-y-8 overflow-y-auto'}>
-            {workerList.map((worker: WorkerList, idx) => <Card key={idx} worker={worker}/>)}
+            {workerList.sort((a, b) => a.userName.localeCompare(b.userName, 'ko-KR')).map((worker: WorkerList, idx) => <Card key={idx} worker={worker}/>)}
         </main>)
 }
 

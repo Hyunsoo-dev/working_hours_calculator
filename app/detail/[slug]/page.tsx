@@ -33,19 +33,19 @@ const Page = ({ params }: { params: { slug: string }}) => {
                 <div>초과 근무: {workInfo.totalOverTime}</div>
             </div>
             <div className={'h-12 w-full xl:text-xl text-sm flex gap-5'}>
-                <div>근무 합계: {workInfo.totalTime}</div>
+                <div>실 초과 근무 합계: {workInfo.totalTime}</div>
                 <div>{workInfo.vacation}</div>
             </div>
             <table className="w-full table-auto border border-indigo-600 xl:text-xl text-sm">
                 <thead>
                 <tr className={'bg-indigo-600 h-12'}>
-                    <th className={'hidden xl:table-cell'}>Department</th>
-                    <th>Name</th>
-                    <th className={'hidden xl:table-cell'}>Date</th>
-                    <th>Working Time</th>
-                    <th>Leave Time</th>
-                    <th>Over Time</th>
-                    <th>Vacation Target</th>
+                    <th className={'hidden xl:table-cell'}>부서</th>
+                    <th>성함</th>
+                    <th className={'hidden xl:table-cell'}>근무 일자</th>
+                    <th>출근 시간</th>
+                    <th>퇴근 시간</th>
+                    <th>초과 근무</th>
+                    <th>휴가 대상</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -72,13 +72,13 @@ const Page = ({ params }: { params: { slug: string }}) => {
             <table className="w-full table-auto border border-indigo-600 xl:text-xl text-sm">
                 <thead>
                 <tr className={'bg-indigo-600 h-12'}>
-                    <th className={'hidden xl:table-cell'}>Department</th>
-                    <th>Name</th>
-                    <th className={'hidden xl:table-cell'}>Date</th>
-                    <th>Working Time</th>
-                    <th>Leave Time</th>
-                    <th>Over Time</th>
-                    <th>Vacation Target</th>
+                    <th className={'hidden xl:table-cell'}>부서</th>
+                    <th>성함</th>
+                    <th className={'hidden xl:table-cell'}>근무 일자</th>
+                    <th>출근 시간</th>
+                    <th>퇴근 시간</th>
+                    <th>초과 근무</th>
+                    <th>휴가 대상</th>
                 </tr>
                 </thead>
                 <tbody>
