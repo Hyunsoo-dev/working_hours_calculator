@@ -197,16 +197,16 @@ export const convertToSeconds = (time: string) => {
 }
 
 export const convertSecondsToTime = (seconds: number): string => {
-    seconds = Math.abs(seconds);
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
+    let tmpSeconds = Math.abs(seconds);
+    const hours = Math.floor(tmpSeconds / 3600);
+    const minutes = Math.floor((tmpSeconds % 3600) / 60);
+    const remainingSeconds = tmpSeconds % 60;
 
     const paddedHours = String(hours).padStart(2, '0');
     const paddedMinutes = String(minutes).padStart(2, '0');
     const paddedSeconds = String(remainingSeconds).padStart(2, '0');
-    if (seconds <= 0) {
-        `-${paddedHours}:${paddedMinutes}:${paddedSeconds}`;
+    if (seconds < 0) {
+        return `-${paddedHours}:${paddedMinutes}:${paddedSeconds}`;
     }
     return `${paddedHours}:${paddedMinutes}:${paddedSeconds}`;
 }
