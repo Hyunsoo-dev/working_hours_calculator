@@ -113,6 +113,25 @@ export const sumNegativeTimes = (timeArray: string[]): string => {
     return `${totalHours < 0 || totalMinutes < 0 || totalSeconds < 0? "-" : ""}${Math.abs(totalHours).toString().padStart(2, '0')}:${Math.abs(totalMinutes).toString().padStart(2, '0')}:${Math.abs(totalSeconds).toString().padStart(2, '0')}`;
 }
 
+export const getPositiveTimesAfterSubtracting2Hours = (time: string) => {
+    if (time.startsWith("-")) return '00:00:00';
+    const [hoursStr, minutesStr, secondsStr] = time.split(":").map((str) => parseInt(str, 10));
+    let totalHours = hoursStr;
+    let totalMinutes = minutesStr;
+    let totalSeconds = secondsStr;
+
+
+    let sumOfSeconds = totalHours * 60 * 60 + totalMinutes * 60 + totalSeconds;
+
+    sumOfSeconds = sumOfSeconds - 2 * 60 * 60;
+    if (sumOfSeconds <= 0) {
+        return '00:00:00';
+    }
+    const hours = Math.floor(sumOfSeconds / 3600);
+    const minutes = Math.floor((sumOfSeconds % 3600) / 60);
+    const remainingSeconds = sumOfSeconds % 60;
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
 
 export const sumPositiveTimesAfterSubtracting2Hours = (timeArray: string[]): string => {
     const positiveTimes = timeArray
