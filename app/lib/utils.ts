@@ -60,6 +60,7 @@ export const parseByName = (infos: InfoEn[]) => {
         }
         if (!parsedObj[name]) {
             parsedObj[name] = [];
+            parsedObj[name].push(info);
         }
     })
     return parsedObj;
