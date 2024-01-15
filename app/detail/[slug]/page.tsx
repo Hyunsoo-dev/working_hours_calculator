@@ -239,7 +239,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                   </td>
                   <td className="text-center align-middle">
                     {record.overTime
-                      ? getPositiveTimesAfterSubtracting2Hours(record.overTime)
+                      ? record.overTime
                       : "--"}
                   </td>
                 </tr>
