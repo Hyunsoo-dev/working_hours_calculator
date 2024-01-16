@@ -72,6 +72,7 @@ export default function Home() {
 
       const notNullWorkRecordArray = workRecordArray
           .filter((workRecord: InfoEn) => workRecord.state !== '공휴일')
+          .filter((workRecord: InfoEn) => workRecord.state === '출근' || workRecord.state === '지각')
         .filter((workRecord: InfoEn) => workRecord.overTime)
         .map((workRecord: InfoEn) => workRecord.overTime);
 
