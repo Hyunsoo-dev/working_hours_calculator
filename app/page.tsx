@@ -42,7 +42,7 @@ export default function Home() {
       const workingDay = workRecordArray
         .filter(
           (workRecord: InfoEn) =>
-            workRecord.state === "출근" || workRecord.state === "지각"
+            workRecord.state === "출근" || workRecord.state === "지각" || workRecord.state.includes('출근')
         )
         .filter(
           (workRecord: InfoEn) => workRecord.leaveTime && workRecord.workingTime
@@ -72,7 +72,7 @@ export default function Home() {
 
       const notNullWorkRecordArray = workRecordArray
           .filter((workRecord: InfoEn) => workRecord.state !== '공휴일')
-          .filter((workRecord: InfoEn) => workRecord.state === '출근' || workRecord.state === '지각')
+          .filter((workRecord: InfoEn) => workRecord.state === '출근' || workRecord.state === '지각' ||  workRecord.state.includes('출근'))
         .filter((workRecord: InfoEn) => workRecord.overTime)
         .map((workRecord: InfoEn) => workRecord.overTime);
 
@@ -80,6 +80,7 @@ export default function Home() {
       const totalOverTime = sumPositiveTimesAfterSubtracting2Hours(
         notNullWorkRecordArray
       );
+
       const secondsOfUnderWorkTime = convertToSeconds(totalUnderWorkTime);
       const secondsOfOverTime = convertToSeconds(totalOverTime);
       const secondsOfTotalTime = secondsOfOverTime - secondsOfUnderWorkTime;

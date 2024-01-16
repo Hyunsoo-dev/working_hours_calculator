@@ -72,7 +72,7 @@ export const sumNegativeTimes = (timeArray: string[]): string => {
   let totalSeconds = 0;
   for (const time of timeArray) {
     if (time.startsWith("-")) {
-      
+
       // let str = '-00:45:21';
       let [hoursStr, minutesStr, secondsStr] = time
         .split(":")
@@ -157,7 +157,7 @@ export const sumPositiveTimesAfterSubtracting2Hours = (
       let totalHours = hoursStr;
       let totalMinutes = minutesStr;
       let totalSeconds = secondsStr;
-
+      console.log('hoursStr, minutesStr, secondsStr :', hoursStr, minutesStr, secondsStr);
       let sumOfSeconds =
         totalHours * 60 * 60 + totalMinutes * 60 + totalSeconds;
 
@@ -250,7 +250,6 @@ export const adjustLeaveTime = (time: string) => {
   let [hoursStr, minutesStr, secondsStr] = time
     .split(":")
     .map((str) => parseInt(str, 10));
-  console.log("adjustLeaveTime hoursStr :", hoursStr);
 
   if (16 <= hoursStr && hoursStr <= 24) {
     return time;
