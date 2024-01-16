@@ -72,7 +72,7 @@ export const sumNegativeTimes = (timeArray: string[]): string => {
   let totalSeconds = 0;
   for (const time of timeArray) {
     if (time.startsWith("-")) {
-      // console.log('time: ', time);
+      
       // let str = '-00:45:21';
       let [hoursStr, minutesStr, secondsStr] = time
         .split(":")
@@ -85,7 +85,11 @@ export const sumNegativeTimes = (timeArray: string[]): string => {
       } else if (hoursStr === 0) {
         // -00:01:00 or -00:01:12
         minutesStr = parseInt(`-${minutesStr}`, 10);
+        secondsStr = parseInt(`-${secondsStr}`, 10);
       } else {
+
+        minutesStr = parseInt(`-${minutesStr}`, 10);
+        secondsStr = parseInt(`-${secondsStr}`, 10);
       }
 
       totalHours += hoursStr;

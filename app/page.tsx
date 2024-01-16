@@ -49,7 +49,6 @@ export default function Home() {
         );
 
       const countOfWorkingDay: number = workingDay.length;
-
       const adjustedWorkingDay = workingDay.map((work: InfoEn) => {
         return {
           ...work,
@@ -70,9 +69,12 @@ export default function Home() {
       const averageWorkingTime = averageWorkingSeconds
         ? convertSecondsToTime(averageWorkingSeconds)
         : "--";
+
       const notNullWorkRecordArray = workRecordArray
+          .filter((workRecord: InfoEn) => workRecord.state !== '공휴일')
         .filter((workRecord: InfoEn) => workRecord.overTime)
         .map((workRecord: InfoEn) => workRecord.overTime);
+
       const totalUnderWorkTime = sumNegativeTimes(notNullWorkRecordArray);
       const totalOverTime = sumPositiveTimesAfterSubtracting2Hours(
         notNullWorkRecordArray
