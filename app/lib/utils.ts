@@ -51,19 +51,20 @@ export const parseKeyName = (infos: InfoKr[]) => {
 };
 
 export const parseByName = (infos: InfoEn[]) => {
-  let parsedObj = {} as any;
-  infos.map((info: InfoEn, idx: number) => {
-    const name = info["name"];
-    if (parsedObj[name]) {
-      parsedObj[name].push(info);
-    }
-    if (!parsedObj[name]) {
-      parsedObj[name] = [];
-    }
-  });
-  return parsedObj;
-  // console.log('parsedObj: ', parsedObj);
-};
+    let parsedObj = {} as any;
+    infos.map((info: InfoEn, idx: number) => {
+        const name = info['name'];
+        if (parsedObj[name]) {
+            parsedObj[name].push(info);
+        }
+        if (!parsedObj[name]) {
+            parsedObj[name] = [];
+            parsedObj[name].push(info);
+        }
+    })
+    return parsedObj;
+    // console.log('parsedObj: ', parsedObj);
+}
 
 export const sumNegativeTimes = (timeArray: string[]): string => {
   let totalHours = 0;
@@ -71,7 +72,7 @@ export const sumNegativeTimes = (timeArray: string[]): string => {
   let totalSeconds = 0;
   for (const time of timeArray) {
     if (time.startsWith("-")) {
-      // console.log('time: ', time);
+
       // let str = '-00:45:21';
       let [hoursStr, minutesStr, secondsStr] = time
         .split(":")
@@ -84,7 +85,11 @@ export const sumNegativeTimes = (timeArray: string[]): string => {
       } else if (hoursStr === 0) {
         // -00:01:00 or -00:01:12
         minutesStr = parseInt(`-${minutesStr}`, 10);
+        secondsStr = parseInt(`-${secondsStr}`, 10);
       } else {
+
+        minutesStr = parseInt(`-${minutesStr}`, 10);
+        secondsStr = parseInt(`-${secondsStr}`, 10);
       }
 
       totalHours += hoursStr;
@@ -152,7 +157,7 @@ export const sumPositiveTimesAfterSubtracting2Hours = (
       let totalHours = hoursStr;
       let totalMinutes = minutesStr;
       let totalSeconds = secondsStr;
-
+      console.log('hoursStr, minutesStr, secondsStr :', hoursStr, minutesStr, secondsStr);
       let sumOfSeconds =
         totalHours * 60 * 60 + totalMinutes * 60 + totalSeconds;
 
@@ -245,7 +250,6 @@ export const adjustLeaveTime = (time: string) => {
   let [hoursStr, minutesStr, secondsStr] = time
     .split(":")
     .map((str) => parseInt(str, 10));
-  console.log("adjustLeaveTime hoursStr :", hoursStr);
 
   if (16 <= hoursStr && hoursStr <= 24) {
     return time;
