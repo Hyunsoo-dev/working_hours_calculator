@@ -47,6 +47,7 @@ export default function Home() {
         .filter(
           (workRecord: InfoEn) => workRecord.leaveTime && workRecord.workingTime
         );
+      console.log("workingDay :", workingDay);
 
       const countOfWorkingDay: number = workingDay.length;
 
