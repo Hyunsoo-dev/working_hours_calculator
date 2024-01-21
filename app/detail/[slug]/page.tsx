@@ -6,7 +6,7 @@ import {
   getPositiveTimesAfterSubtracting2Hours,
   convertToSeconds,
 } from "../../lib/utils";
-import Button from '../../ui/detail/button';
+import Button from "../../ui/detail/button";
 
 const Page = ({ params }: { params: { slug: string } }) => {
   console.log("params:", decodeURIComponent(params.slug));
@@ -21,11 +21,13 @@ const Page = ({ params }: { params: { slug: string } }) => {
   });
   const [workRecordLength, setWorkRecordLength] = useState(0);
   const [overWorkRecordLength, setOverWorkRecordLength] = useState(0);
-  const [overWorkHolidayRecordLength, setOverWorkHolidayRecordLength] = useState(0);
+  const [overWorkHolidayRecordLength, setOverWorkHolidayRecordLength] =
+    useState(0);
 
   const [isOpenWorkRecord, setIsOpenWorkRecord] = useState(true);
   const [isOpenOverWorkRecord, setIsOpenOverWorkRecord] = useState(true);
-  const [isOpenOverWorkHolidayRecord, setIsOpenOverWorkHolidayRecord] = useState(true);
+  const [isOpenOverWorkHolidayRecord, setIsOpenOverWorkHolidayRecord] =
+    useState(true);
 
   const getWorkerList = useWorkerListStore(
     (state: WorkerListStore) => state.getWorkerList
@@ -38,11 +40,21 @@ const Page = ({ params }: { params: { slug: string } }) => {
 
     const tempWorkRecordLength = workInfo.workRecord.length;
     const tmpOverWorkRecordLength = workInfo.workRecord
-        .filter((record: InfoEn) => convertToSeconds(getPositiveTimesAfterSubtracting2Hours(record.overTime)) > 0)
-        .filter((record) => record.state !== "공휴일").length;
+      .filter(
+        (record: InfoEn) =>
+          convertToSeconds(
+            getPositiveTimesAfterSubtracting2Hours(record.overTime)
+          ) > 0
+      )
+      .filter((record) => record.state !== "공휴일").length;
     const tmpOverWorkHolidayRecordLength = workInfo.workRecord
-        .filter((record: InfoEn) => convertToSeconds(getPositiveTimesAfterSubtracting2Hours(record.overTime)) > 0)
-        .filter((record) => record.state === "공휴일").length;
+      .filter(
+        (record: InfoEn) =>
+          convertToSeconds(
+            getPositiveTimesAfterSubtracting2Hours(record.overTime)
+          ) > 0
+      )
+      .filter((record) => record.state === "공휴일").length;
     setWorkRecordLength(tempWorkRecordLength);
     setOverWorkRecordLength(tmpOverWorkRecordLength);
     setOverWorkHolidayRecordLength(tmpOverWorkHolidayRecordLength);
@@ -69,18 +81,28 @@ const Page = ({ params }: { params: { slug: string } }) => {
         <div>실 초과 근무 합계: {workInfo.totalTime}</div>
         <div>평균 근무 시간: {workInfo.averageWorkingTime}</div>
       </div>
-      <div
+      {/* <div
         className={"h-12 w-full xl:text-xl text-sm flex gap-5 justify-center"}
       >
         <div>{workInfo.vacation}</div>
+      </div> */}
+      <div
+        className={
+          "h-12 w-full xl:text-xl text-sm flex gap-5 mt-5 items-center"
+        }
+      >
+        <div className={"flex items-center"}>
+          근무 기록 {workRecordLength} 건{" "}
+        </div>
+        <Button isOpen={isOpenWorkRecord} setIsOpen={setIsOpenWorkRecord} />
       </div>
-      <div className={"h-12 w-full xl:text-xl text-sm flex gap-5 mt-5 items-center"}>
-        <div className={'flex items-center'}>근무 기록  {workRecordLength} 건 </div>
-        <Button isOpen={isOpenWorkRecord} setIsOpen={setIsOpenWorkRecord}/>
-      </div>
-      <table className={`w-full table-auto border border-indigo-600 xl:text-xl text-sm ${!isOpenWorkRecord && 'hidden'}`}>
+      <table
+        className={`w-full table-auto border border-indigo-600 xl:text-xl text-sm ${
+          !isOpenWorkRecord && "hidden"
+        }`}
+      >
         <thead>
-          <tr className={"bg-indigo-600 h-12"}>
+          <tr className={"bg-indigo-600 h-12 text-white"}>
             <th className={"hidden xl:table-cell"}>No</th>
             <th className={"hidden xl:table-cell"}>부서</th>
             <th>성함</th>
@@ -98,7 +120,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
               <tr
                 key={idx}
                 className={
-                  "border border-indigo-500 h-8 hover:bg-indigo-500 cursor-pointer"
+                  "border border-highlight-rgb h-8 hover:bg-highlight-rgb cursor-pointer"
                 }
               >
                 <td className="text-center align-middle hidden xl:table-cell">
@@ -141,12 +163,21 @@ const Page = ({ params }: { params: { slug: string } }) => {
           "h-12 w-full xl:text-xl text-sm flex items-center gap-5 mt-5"
         }
       >
-        <div className={'flex items-center'}>휴가 대상 목록 (공휴일 제외) {overWorkRecordLength}건</div>
-        <Button isOpen={isOpenOverWorkRecord} setIsOpen={setIsOpenOverWorkRecord}/>
+        <div className={"flex items-center"}>
+          휴가 대상 목록 (공휴일 제외) {overWorkRecordLength}건
+        </div>
+        <Button
+          isOpen={isOpenOverWorkRecord}
+          setIsOpen={setIsOpenOverWorkRecord}
+        />
       </div>
-      <table className={`w-full table-auto border border-indigo-600 xl:text-xl text-sm ${!isOpenOverWorkRecord && 'hidden'}`}>
+      <table
+        className={`w-full table-auto border border-indigo-600 xl:text-xl text-sm ${
+          !isOpenOverWorkRecord && "hidden"
+        }`}
+      >
         <thead>
-          <tr className={"bg-indigo-600 h-12"}>
+          <tr className={"bg-indigo-600 h-12 text-white"}>
             <th className={"hidden xl:table-cell"}>No</th>
             <th className={"hidden xl:table-cell"}>부서</th>
             <th>성함</th>
@@ -215,11 +246,18 @@ const Page = ({ params }: { params: { slug: string } }) => {
         }
       >
         <div>휴가 대상 목록 (공휴일) {overWorkHolidayRecordLength} 건</div>
-        <Button isOpen={isOpenOverWorkHolidayRecord} setIsOpen={setIsOpenOverWorkHolidayRecord}/>
+        <Button
+          isOpen={isOpenOverWorkHolidayRecord}
+          setIsOpen={setIsOpenOverWorkHolidayRecord}
+        />
       </div>
-      <table className={`w-full table-auto border border-indigo-600 xl:text-xl text-sm ${!isOpenOverWorkHolidayRecord && 'hidden'}`}>
+      <table
+        className={`w-full table-auto border border-indigo-600 xl:text-xl text-sm ${
+          !isOpenOverWorkHolidayRecord && "hidden"
+        }`}
+      >
         <thead>
-          <tr className={"bg-indigo-600 h-12"}>
+          <tr className={"bg-indigo-600 h-12 text-white"}>
             <th className={"hidden xl:table-cell"}>No</th>
             <th className={"hidden xl:table-cell"}>부서</th>
             <th>성함</th>
@@ -273,9 +311,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                     {record.overTime ? record.overTime : "--"}
                   </td>
                   <td className="text-center align-middle">
-                    {record.overTime
-                      ? record.overTime
-                      : "--"}
+                    {record.overTime ? record.overTime : "--"}
                   </td>
                 </tr>
               );

@@ -42,7 +42,9 @@ export default function Home() {
       const workingDay = workRecordArray
         .filter(
           (workRecord: InfoEn) =>
-            workRecord.state === "출근" || workRecord.state === "지각" || workRecord.state.includes('출근')
+            workRecord.state === "출근" ||
+            workRecord.state === "지각" ||
+            workRecord.state.includes("출근")
         )
         .filter(
           (workRecord: InfoEn) => workRecord.leaveTime && workRecord.workingTime
@@ -72,8 +74,13 @@ export default function Home() {
         : "--";
 
       const notNullWorkRecordArray = workRecordArray
-          .filter((workRecord: InfoEn) => workRecord.state !== '공휴일')
-          .filter((workRecord: InfoEn) => workRecord.state === '출근' || workRecord.state === '지각' ||  workRecord.state.includes('출근'))
+        .filter((workRecord: InfoEn) => workRecord.state !== "공휴일")
+        .filter(
+          (workRecord: InfoEn) =>
+            workRecord.state === "출근" ||
+            workRecord.state === "지각" ||
+            workRecord.state.includes("출근")
+        )
         .filter((workRecord: InfoEn) => workRecord.overTime)
         .map((workRecord: InfoEn) => workRecord.overTime);
 
@@ -119,7 +126,7 @@ export default function Home() {
       />
       <section
         className={
-          "flex justify-center items-center xl:w-1/2 w-full h-1/4 bg-indigo-600 cursor-cell hover:bg-indigo-500"
+          "flex justify-center items-center xl:w-1/2 w-full h-1/4 bg-indigo-600 cursor-cell hover:bg-indigo-500 text-text-rgb"
         }
         onClick={onChangeDropBox}
       >
